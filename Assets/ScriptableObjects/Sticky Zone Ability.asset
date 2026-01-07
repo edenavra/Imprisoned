@@ -20,7 +20,7 @@ MonoBehaviour:
   stickyTargetLayers:
     serializedVersion: 2
     m_Bits: 2048
-  debugLogs: 1
+  debugLogs: 0
   debugDrawZoneGizmos: 1
   debugSpawnGhost: 1
   debugGhostLifetimeSeconds: 30

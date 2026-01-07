@@ -10420,6 +10420,10 @@ PrefabInstance:
       propertyPath: detectionRadius
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4298942477161803468, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: debugLogs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5186025473858150525, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.02
@@ -10464,6 +10468,10 @@ PrefabInstance:
       propertyPath: tray
       value: 
       objectReference: {fileID: 3793594676184193298}
+    - target: {fileID: 6227209754630120490, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: logBehaviorSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7255375527547108681, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_Name
       value: EnemyBackAndForth (2)
@@ -11324,9 +11332,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 244617782105567015, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
+      propertyPath: logBehaviorSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 577908248117500114, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
       propertyPath: detectionRadius
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 615584845532550897, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
+      propertyPath: debugLogs
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2675175106423644974, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11379,6 +11395,10 @@ PrefabInstance:
     - target: {fileID: 8482994998386503142, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
       propertyPath: percentToRemovePerHit
       value: 20.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128047829047679608, guid: 23b0d902f0ddf554a87e5b68b7a1b54f, type: 3}
+      propertyPath: debugLogs
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21882,6 +21902,10 @@ PrefabInstance:
       propertyPath: detectionRadius
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4298942477161803468, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: debugLogs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5186025473858150525, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.2
@@ -21926,6 +21950,10 @@ PrefabInstance:
       propertyPath: tray
       value: 
       objectReference: {fileID: 3793594676184193298}
+    - target: {fileID: 6227209754630120490, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: logBehaviorSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7255375527547108681, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_Name
       value: EnemyBackAndForth (1)
@@ -27818,7 +27846,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   requiredDeaths: 6
-  debugLogs: 1
+  debugLogs: 0
 --- !u!4 &436636933008870020
 Transform:
   m_ObjectHideFlags: 0
@@ -27846,6 +27874,10 @@ PrefabInstance:
     - target: {fileID: 287724949078405270, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: detectionRadius
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298942477161803468, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: debugLogs
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5186025473858150525, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27891,6 +27923,10 @@ PrefabInstance:
       propertyPath: tray
       value: 
       objectReference: {fileID: 3793594676184193298}
+    - target: {fileID: 6227209754630120490, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
+      propertyPath: logBehaviorSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7255375527547108681, guid: 597b7c40a2d624e5daad8ed33d8eb84d, type: 3}
       propertyPath: m_Name
       value: EnemyBackAndForth
@@ -28211,6 +28247,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3793594676184193298}
     m_Modifications:
+    - target: {fileID: 187858009559325890, guid: 5ad347cc5307f4ac8875e4c5e9014638, type: 3}
+      propertyPath: logBehaviorSwitch
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2923702396451744168, guid: 5ad347cc5307f4ac8875e4c5e9014638, type: 3}
       propertyPath: m_Name
       value: EnemyStill
@@ -28269,6 +28309,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056867680684220958, guid: 5ad347cc5307f4ac8875e4c5e9014638, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109417938537403405, guid: 5ad347cc5307f4ac8875e4c5e9014638, type: 3}
+      propertyPath: debugLogs
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -28408,6 +28452,10 @@ PrefabInstance:
       propertyPath: tray
       value: 
       objectReference: {fileID: 3793594676184193298}
+    - target: {fileID: 239731067989249929, guid: 887481c17cdfb471d974bc7d35cf2985, type: 3}
+      propertyPath: debugLogs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 387205316855891604, guid: 887481c17cdfb471d974bc7d35cf2985, type: 3}
       propertyPath: m_Name
       value: EnemyWalkAround
@@ -28450,6 +28498,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2129473144204986293, guid: 887481c17cdfb471d974bc7d35cf2985, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3509117321002125500, guid: 887481c17cdfb471d974bc7d35cf2985, type: 3}
+      propertyPath: logBehaviorSwitch
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6257479600386218102, guid: 887481c17cdfb471d974bc7d35cf2985, type: 3}
@@ -28817,6 +28869,18 @@ PrefabInstance:
       value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: debugPolygon
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: debugFillFailures
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: progressiveBaseUvStep
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: 'paintSurfaces.Array.data[0]'
       value: 
       objectReference: {fileID: 3260622557042798612}
@@ -28827,6 +28891,18 @@ PrefabInstance:
     - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: 'paintSurfaces.Array.data[2]'
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3168310633648749511, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: progressiveTimeBudgetMsPerFrame
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: debugRays
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: debugFillFailures
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: timeBrushBlitMaterial
@@ -28900,6 +28976,10 @@ PrefabInstance:
       propertyPath: upSource
       value: 
       objectReference: {fileID: 3793594676184193298}
+    - target: {fileID: 7176294800365090857, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: debugLogs
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7176294800365090857, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: maxDamagePerFill
       value: 2

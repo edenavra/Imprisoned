@@ -64454,6 +64454,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   triggerOnce: 1
+  countLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  requiredDeaths: 4
   debugLogs: 1
 --- !u!4 &436636933008870020
 Transform:
@@ -64936,6 +64940,7 @@ MonoBehaviour:
   swapXZ: 0
   invertU: 1
   invertV: 1
+  debugTime: 0
 --- !u!1 &956151077223206974
 GameObject:
   m_ObjectHideFlags: 0
@@ -66706,6 +66711,7 @@ MonoBehaviour:
   swapXZ: 0
   invertU: 1
   invertV: 1
+  debugTime: 0
 --- !u!33 &3278020000129805819
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -73072,6 +73078,7 @@ MonoBehaviour:
   swapXZ: 0
   invertU: 1
   invertV: 1
+  debugTime: 0
 --- !u!4 &5758391777646105375
 Transform:
   m_ObjectHideFlags: 0
@@ -74449,13 +74456,14 @@ MonoBehaviour:
   downKey: 274
   leftKey: 276
   rightKey: 275
+  inputForward: {x: 0, y: 0, z: 1}
   maxTiltDeg: 10
   tiltAccelDegPerSec: 20
   recenterDegPerSec: 40
   followDegPerSec: 360
   physicsDriven: 1
   inputCamera: {fileID: 1410603021}
-  flipModelPhysicsX: 1
+  flipModelPhysicsX: 0
   flipModelPhysicsZ: 0
 --- !u!1 &7756803287416272508
 GameObject:
