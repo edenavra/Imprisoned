@@ -1,5 +1,6 @@
     // FILEPATH: Assets/Scripts/Painting/Shapes/StrokeTrailAnalyzer.cs
 
+    using JellyGame.GamePlay.Managers;
     using JellyGame.GamePlay.Painting.Trails.Collision;
     using JellyGame.GamePlay.Painting.Trails.Visibility;
     using UnityEngine;

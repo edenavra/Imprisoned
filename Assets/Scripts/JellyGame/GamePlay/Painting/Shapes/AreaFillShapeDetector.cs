@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JellyGame.GamePlay.Abilities;
 using JellyGame.GamePlay.Audio.Core;
+using JellyGame.GamePlay.Managers;
 using JellyGame.GamePlay.Map.Surfaces;
 using JellyGame.GamePlay.Painting.Trails.Visibility;
 using UnityEngine;
@@ -136,6 +137,7 @@ namespace JellyGame.GamePlay.Painting.Shapes
                 SoundManager.Instance.PlaySound("CloseArea", this.transform);
 
                 PlayerAbilityManager.Instance.OnAreaFilled(referenceSurface, localPolyXZ, localBounds);
+                EventManager.TriggerEvent(EventManager.GameEvent.OnShapeClosed, this);
             }
 
             // Convert local XZ -> UV polygon

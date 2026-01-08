@@ -1,4 +1,7 @@
 // FILEPATH: Assets/Scripts/Painting/SimplePaintSurface.cs
+
+using JellyGame.GamePlay.Managers;
+using JellyGame.GamePlay.Painting.Trails.Visibility;
 using UnityEngine;
 
 namespace JellyGame.GamePlay.Map.Surfaces
@@ -22,8 +25,25 @@ namespace JellyGame.GamePlay.Map.Surfaces
         [SerializeField] private string paintTimeTexProperty = "_PaintTimeTex";
         [SerializeField] private string currentTimeProperty = "_CurrentTime";
         
+        [Header("Trail Event Painting")]
+        [SerializeField] private string trailStateTexProperty = "_TrailStateTex";
+        private RenderTexture _trailStateRT;
+        
+        [Header("paint method parameters")]
+        [SerializeField] private string paintMethodTexProperty = "_PaintMethod";
+        private RenderTexture _paintMethodRT;
+        
+        [Header("Trail Generation (Birth-based)")]
+        [SerializeField] private string trailBirthTexProperty = "_TrailBirthTex";
+        [SerializeField] private string currentTrailGenerationProperty = "_CurrentTrailGeneration";
+
+        private RenderTexture _trailBirthRT;
+        
         [Tooltip("How many seconds until paint is fully 'old' (gray)")]
         [SerializeField] private float maxAgeSeconds = 10f;
+        
+        [Header("Smart Lock")]
+        [SerializeField] private Material selectiveLockMaterial;
 
         [Header("World→Paint Mapping")]
         [SerializeField] private bool swapXZ = false;
@@ -46,6 +66,9 @@ namespace JellyGame.GamePlay.Map.Surfaces
         public RenderTexture PaintTimeRT => _paintTimeRT;
         public bool EnableTimeAging => enableTimeAging;
         public float MaxAgeSeconds => maxAgeSeconds;
+        public RenderTexture PaintMethodRT => _paintMethodRT;
+        public RenderTexture TrailStateRT => _trailStateRT;
+        public RenderTexture TrailBirthRT => _trailBirthRT;
 
         void Awake()
         {
@@ -55,9 +78,26 @@ namespace JellyGame.GamePlay.Map.Surfaces
             InitRenderTextures();
             CacheLocalPlaneBounds();
         }
+        
+        private void OnEnable()
+        {
+            EventManager.StartListening(
+                EventManager.GameEvent.OnShapeClosed,
+                OnShapeClosed
+            );
+        }
+
+        private void OnDisable()
+        {
+            EventManager.StopListening(
+                EventManager.GameEvent.OnShapeClosed,
+                OnShapeClosed
+            );
+        }
 
         void Update()
         {
+            if (_renderer == null || _renderer.material == null) return;
             if (enableTimeAging && _renderer != null && _renderer.material != null)
             {
                 // Send current time in RAW SECONDS (modulo a large number to prevent float precision issues)
@@ -69,7 +109,18 @@ namespace JellyGame.GamePlay.Map.Surfaces
                 {
                     Debug.Log($"[SimplePaintSurface] CurrentTime sent to shader: {currentTime:F2}");
                 }
+            } 
+            /*_renderer.material.SetFloat(
+                currentTrailGenerationProperty,
+                TrailGenerationManager.CurrentGeneration
+            );*/
+            float gen = TrailGenerationManager.CurrentGeneration;
+            _renderer.material.SetFloat(currentTrailGenerationProperty, gen);
+
+            if (debugTime && Time.frameCount % 60 == 0) {
+                // Debug.Log($"Surface {name} Gen: {gen}"); 
             }
+            _renderer.material.SetFloat("MaxAge", maxAgeSeconds);
         }
 
         void OnDestroy()
@@ -123,6 +174,39 @@ namespace JellyGame.GamePlay.Map.Surfaces
                 // Initialize with 0 (will be overwritten when painted)
                 ClearRT(_paintTimeRT, new Color(0, 0, 0, 0));
             }
+            
+            // Paint METHOD texture 
+            _paintMethodRT = new RenderTexture(textureSize, textureSize, 0, RenderTextureFormat.R8);
+            _paintMethodRT.wrapMode = TextureWrapMode.Clamp;
+            _paintMethodRT.filterMode = FilterMode.Point;
+            _paintMethodRT.Create();
+            // default to 0 (trail)
+            ClearRT(_paintMethodRT, Color.black); // 0 = Trail
+
+            _renderer.material.SetTexture(paintMethodTexProperty, _paintMethodRT);
+            
+            // Trail STATE texture 
+            _trailStateRT = new RenderTexture(textureSize, textureSize, 0, RenderTextureFormat.R8);
+            _trailStateRT.wrapMode = TextureWrapMode.Clamp;
+            _trailStateRT.filterMode = FilterMode.Point;
+            _trailStateRT.Create();
+
+            // default to 0 (new)
+            ClearRT(_trailStateRT, Color.black); // 0 = New
+
+            _renderer.material.SetTexture(trailStateTexProperty, _trailStateRT);
+            
+            // ===== Trail Birth texture =====
+            _trailBirthRT = new RenderTexture(textureSize, textureSize, 0, RenderTextureFormat.RFloat);
+            _trailBirthRT.wrapMode = TextureWrapMode.Clamp;
+            _trailBirthRT.filterMode = FilterMode.Point;
+            _trailBirthRT.Create();
+
+            // default birth = -1 (means: never painted)
+            ClearRT(_trailBirthRT, new Color(-1f, 0, 0, 0));
+
+            _renderer.material.SetTexture(trailBirthTexProperty, _trailBirthRT);
+
 
             // Assign to material
             if (_renderer && _renderer.material != null)
@@ -264,6 +348,47 @@ namespace JellyGame.GamePlay.Map.Surfaces
             ClearRT(_paintRT, clearColor);
             if (_paintTimeRT != null)
                 ClearRT(_paintTimeRT, new Color(0, 0, 0, 0));
+        }
+        
+        private void OnShapeClosed(object sender)
+        {
+            //TrailGenerationManager.AdvanceGeneration();
+            
+            LockCurrentTrail();
+        }
+        
+        /*private void LockCurrentTrail()
+        {
+            if (_trailStateRT == null)
+                return;
+
+            var prev = RenderTexture.active;
+            RenderTexture.active = _trailStateRT;
+
+            // 1 = Old trail
+            GL.Clear(true, true, Color.white);
+
+            RenderTexture.active = prev;
+        }*/
+        private void LockCurrentTrail()
+        {
+            if (_trailStateRT == null || selectiveLockMaterial == null || _paintMethodRT == null)
+            {
+                Debug.LogWarning("Missing references for Smart Lock!");
+                return;
+            }
+
+            // יצירת טקסטורה זמנית
+            RenderTexture tempRT = RenderTexture.GetTemporary(_trailStateRT.descriptor);
+
+            // ביצוע Lock סלקטיבי: רק פיקסלים שהם "שובל" ינעלו
+            selectiveLockMaterial.SetTexture("_MethodTex", _paintMethodRT);
+            Graphics.Blit(_trailStateRT, tempRT, selectiveLockMaterial);
+            Graphics.Blit(tempRT, _trailStateRT);
+
+            RenderTexture.ReleaseTemporary(tempRT);
+    
+            Debug.Log($"[Surface] {gameObject.name} Smart Lock complete. Only trails were locked.");
         }
     }
 }

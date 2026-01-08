@@ -44,6 +44,13 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
 
         [Header("Sampling")]
         [SerializeField] private float minWorldStep = 0.0005f;
+        
+        [Header("Paint Method (Trail / Area)")]
+        [Tooltip("Material that fills _PaintMethod texture (0 = Trail, 1 = Area)")]
+        [SerializeField] private Material paintMethodFillMaterial;
+        
+        [Header("Trail Birth Painting")]
+        [SerializeField] private Material trailBirthBrushMaterial;
 
         [Header("Debug")]
         [SerializeField] private bool debugRays = false;
@@ -149,6 +156,8 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
 
             // Paint TIME (if enabled)
             PaintTimeAtUV(_currentSurface, uvCenter, halfSizeUV.x, 1f);
+            // Paint TRAIL BIRTH
+            PaintTrailBirthAtUV(_currentSurface, uvCenter, halfSizeUV.x, 1f);
         }
 
         /// <summary>
@@ -208,6 +217,8 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
 
             // Also paint time
             PaintTimeAtUV(surface, uvCenter, halfSizeUV, opacity);
+            // Also paint trail birth
+            PaintTrailBirthAtUV(surface, uvCenter, halfSizeUV, opacity);
         }
 
         // ========== Polygon Fill ==========
@@ -263,6 +274,14 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
             polygonFillMaterial.SetColor(FillColorId, _currentPaintColor);
             polygonFillMaterial.SetFloat(OpacityId, polygonFillOpacity);
             FillPolygonToRT(rt, poly, tris, polygonFillMaterial);
+            
+            // Fill PAINT METHOD texture
+            if (paintMethodFillMaterial != null && surface.PaintMethodRT != null)
+            {
+                // 1 = Area
+                paintMethodFillMaterial.SetFloat("_Value", 1f);
+                FillPolygonToRT(surface.PaintMethodRT, poly, tris, paintMethodFillMaterial);
+            }
 
             // Fill TIME texture
             if (surface.EnableTimeAging && timePolygonFillMaterial != null && surface.PaintTimeRT != null)
@@ -270,6 +289,14 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
                 float normalizedTime = surface.GetNormalizedTime();
                 timePolygonFillMaterial.SetFloat(PaintTimeId, normalizedTime);
                 FillPolygonToRT(surface.PaintTimeRT, poly, tris, timePolygonFillMaterial);
+            }
+            
+            // Fill TRAIL BIRTH texture
+            if (trailBirthBrushMaterial != null && surface.TrailBirthRT != null)
+            {
+                // we use the same trail birth brush material for polygon fill
+                trailBirthBrushMaterial.SetFloat("_Value", TrailGenerationManager.CurrentGeneration);
+                FillPolygonToRT(surface.TrailBirthRT, poly, tris, trailBirthBrushMaterial);
             }
 
             return true;
@@ -568,5 +595,28 @@ namespace JellyGame.GamePlay.Painting.Trails.Visibility
         {
             return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
         }
+        
+        private void PaintTrailBirthAtUV(
+            SimplePaintSurface surface,
+            Vector2 uvCenter,
+            float halfSizeUV,
+            float opacity
+        )
+        {
+            if (trailBirthBrushMaterial == null || surface.TrailBirthRT == null)
+                return;
+
+            trailBirthBrushMaterial.SetVector("_BrushCenter", new Vector4(uvCenter.x, uvCenter.y, 0, 0));
+            trailBirthBrushMaterial.SetVector("_BrushHalfSize", new Vector4(halfSizeUV, halfSizeUV, 0, 0));
+            trailBirthBrushMaterial.SetFloat("_BrushOpacity", opacity);
+            trailBirthBrushMaterial.SetFloat("_Value", TrailGenerationManager.CurrentGeneration);
+
+            EnsureTemp(surface.TrailBirthRT, ref _tempTimeRT);
+            trailBirthBrushMaterial.SetTexture("_MainTex", surface.TrailBirthRT);
+
+            Graphics.Blit(surface.TrailBirthRT, _tempTimeRT, trailBirthBrushMaterial);
+            Graphics.Blit(_tempTimeRT, surface.TrailBirthRT);
+        }
+
     }
 }

@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &59447998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 59447999}
+  - component: {fileID: 59448000}
+  m_Layer: 0
+  m_Name: TrailGenerationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &59447999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59447998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 763609275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &59448000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59447998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e354c1d2de4b938a89b56ef8c54612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JellyGame.GamePlay.Painting.Trails.Visibility.TrailGenerationManager
 --- !u!1001 &59862584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6930,6 +6974,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1473102173}
+  - {fileID: 59447999}
   m_Father: {fileID: 3793594676184193298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &833988139
@@ -20319,7 +20364,12 @@ MonoBehaviour:
   enableTimeAging: 1
   paintTimeTexProperty: _PaintTimeTex
   currentTimeProperty: _CurrentTime
+  trailStateTexProperty: _TrailStateTex
+  paintMethodTexProperty: _PaintMethod
+  trailBirthTexProperty: _TrailBirthTex
+  currentTrailGenerationProperty: _CurrentTrailGeneration
   maxAgeSeconds: 10
+  selectiveLockMaterial: {fileID: 0}
   swapXZ: 0
   invertU: 1
   invertV: 1
@@ -21264,7 +21314,12 @@ MonoBehaviour:
   enableTimeAging: 1
   paintTimeTexProperty: _PaintTimeTex
   currentTimeProperty: _CurrentTime
+  trailStateTexProperty: _TrailStateTex
+  paintMethodTexProperty: _PaintMethod
+  trailBirthTexProperty: _TrailBirthTex
+  currentTrailGenerationProperty: _CurrentTrailGeneration
   maxAgeSeconds: 30
+  selectiveLockMaterial: {fileID: 2100000, guid: 8ed5129929e884cb98da2b5fdfb9e951, type: 2}
   swapXZ: 0
   invertU: 1
   invertV: 1
@@ -21944,9 +21999,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 994dbc08558d46841864cc935a70af00, type: 2}
     - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: paintMethodFillMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ee07b1a45f65442d8619911ba3bc925, type: 2}
+    - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: timePolygonFillMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 53f9461c8723bfa459e8a235d0980f40, type: 2}
+    - target: {fileID: 3338532106483729296, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
+      propertyPath: trailBirthBrushMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 78310bb056509403b80cc1183d500cf4, type: 2}
     - target: {fileID: 5853046778373512491, guid: c8467aca3bb844ad1bd97ee079fcb3ae, type: 3}
       propertyPath: maxSize
       value: 3
@@ -22350,7 +22413,12 @@ MonoBehaviour:
   enableTimeAging: 1
   paintTimeTexProperty: _PaintTimeTex
   currentTimeProperty: _CurrentTime
+  trailStateTexProperty: _TrailStateTex
+  paintMethodTexProperty: _PaintMethod
+  trailBirthTexProperty: _TrailBirthTex
+  currentTrailGenerationProperty: _CurrentTrailGeneration
   maxAgeSeconds: 10
+  selectiveLockMaterial: {fileID: 0}
   swapXZ: 0
   invertU: 1
   invertV: 1
@@ -23648,7 +23716,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8b4efc0850e840618233f5805cee29f, type: 2}
+  - {fileID: 2100000, guid: 4ef963871fe794a41859d70bed0449ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -27,6 +27,7 @@ namespace JellyGame.GamePlay.Managers
             StrokeCrossingDetected, // data: StrokeCrossingEventData
 
             KeyCollected,        // data: Transform or GameObject (the key that was collected)
+            OnShapeClosed,        // data: ShapeClosedEventData
 
             // NPC / allies
             FriendlyNpcKilled,   // data: GameObject or Transform (the NPC that died)
