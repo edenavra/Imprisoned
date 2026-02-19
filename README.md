@@ -46,9 +46,7 @@ To achieve the specific game-feel and visual style, the team bypassed standard e
 ## 🧠 Team
 - **Programming:** Shir Seroussi, Eden Avrahami, David Deitch
 - **Art & Design:** Ksenia Spirina, Ohad Lerman
-- **Guidance:** Idan Rooze, Eli Babajanov, Dani Bacon
-- **Assistance:** Noa Dveyrin
-
+  
 ---
 
 ## 💡 Notes
