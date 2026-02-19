@@ -12,7 +12,7 @@ Use your form wisely. Free the Slime Prime—and unleash what was never meant to
 ---
 
 ## 🔗 Links
-- 🕹️ **Play the Game:** [Link to Itch.io]
+- 🕹️ **Play the Game:** [Imprisoned on Itch.io](https://ksenia-spirina.itch.io/imprisoned)
 
 ---
 
